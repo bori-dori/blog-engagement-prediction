@@ -2,43 +2,63 @@
 
 ## Project Overview
 
-This project predicts the future number of blog comments using historical blog engagement features.
+This project predicts the future number of blog comments using historical blog activity features.
 
-Several regression models were developed and compared to identify the best-performing model based on validation performance.
+Several regression models were developed and compared to identify the model that achieved the best validation performance. The project covers the complete machine learning workflow, including data preprocessing, feature validation, model development, evaluation, and interpretation.
 
 ---
 
-## Objective
+## Business Objective
 
-The objective of this project was to predict the target variable (`target`), representing the future number of blog comments, using the provided blog activity features.
+The objective of this project was to predict the future number of blog comments using the provided blog activity features.
+
+Accurately forecasting future engagement can support data-driven decision making for content platforms by providing early estimates of potential user engagement.
+
+---
+
+## Potential Business Applications
+
+Although this project focuses on offline model development, a blog engagement prediction model could potentially be used to:
+
+- Estimate future engagement before content promotion
+- Support editorial decisions using engagement predictions
+- Help prioritize content for additional promotion
+- Assist with planning content distribution strategies
+
+These examples illustrate how engagement prediction models may be applied in real-world business settings.
 
 ---
 
 ## Dataset
 
-The dataset contains numerical features describing blog activity, including previous comment activity, link information, and time-based engagement features.
+The dataset contains numerical features describing blog activity, including:
 
-Target variable:
+- Previous comment activity
+- Link information
+- Time-based engagement features
 
-- `target` – future number of blog comments
+**Target Variable**
+
+- **target** – Future number of blog comments
 
 ---
 
 ## Project Workflow
 
-1. Data loading
-2. Duplicate removal
-3. Exploratory Data Analysis (EDA)
-4. Missing value analysis and imputation
-5. Correlation analysis
-6. Feature validation
-7. Removal of constant features
-8. Train-validation split
-9. Model development
-10. Hyperparameter tuning
-11. Model evaluation
-12. Feature importance analysis
-13. Prediction and residual analysis
+- Data loading
+- Duplicate removal
+- Exploratory Data Analysis (EDA)
+- Missing value analysis and imputation
+- Correlation analysis
+- Feature validation
+- Removal of constant features
+- Train-validation split
+- Model development
+- Hyperparameter tuning
+- Model evaluation
+- Feature importance analysis
+- Prediction analysis
+- Residual analysis
 
 ---
 
@@ -60,13 +80,15 @@ The following preprocessing steps were performed:
 The following regression models were evaluated on the validation dataset.
 
 | Model | RMSE | MAE | R² |
-|------|------:|------:|------:|
-| Gradient Boosting Regressor | 26.79 | 6.73 | 0.528 |
+|-------|------:|------:|------:|
+| Gradient Boosting Regressor | **26.79** | 6.73 | **0.528** |
 | Tuned Gradient Boosting Regressor | 27.34 | 6.94 | 0.509 |
-| Random Forest Regressor | 28.06 | 6.43 | 0.483 |
+| Random Forest Regressor | 28.06 | **6.43** | 0.483 |
 | Linear Regression | 31.68 | 9.39 | 0.341 |
 
-Gradient Boosting Regressor achieved the lowest validation RMSE and was selected as the final model.
+The default **Gradient Boosting Regressor** achieved the lowest validation RMSE and the highest R² among the evaluated models and was selected as the final model.
+
+Hyperparameter tuning using RandomizedSearchCV did not improve validation performance, so the default Gradient Boosting model was retained.
 
 ---
 
@@ -76,15 +98,15 @@ The engineered feature
 
 `difference_total_24h_comment_page`
 
-was validated by checking whether it satisfied the following relationship:
+was validated by verifying that it satisfied the following relationship:
 
 ```
 total_comment_before_basetime_page
-−
+-
 24h_comment_before_basetime_page
 ```
 
-Inconsistent values were identified and recalculated before model training.
+Inconsistent observations were identified and recalculated before model training.
 
 ---
 
@@ -96,21 +118,47 @@ According to the final Gradient Boosting model, the most important features incl
 - `24h_comment_before_basetime_page`
 - `difference_total_24h_comment_page`
 
-These features had the highest importance scores in the final model.
+These variables contributed most to predicting future blog engagement.
 
 ---
 
 ## Model Evaluation
 
-Models were evaluated using:
+Models were evaluated using multiple regression metrics:
 
 - RMSE
 - MAE
 - R²
 
-Gradient Boosting Regressor produced the best validation performance among the evaluated models.
+RMSE was used as the primary metric for model comparison, while MAE and R² provided additional perspectives on prediction performance.
 
-Hyperparameter tuning using `RandomizedSearchCV` did not improve validation performance, so the default Gradient Boosting model was selected as the final model.
+---
+
+## Key Findings
+
+- Gradient Boosting achieved the best overall validation performance.
+- Hyperparameter tuning did not improve model performance on the validation dataset.
+- Previous engagement-related features contributed most to predicting future comments.
+- Careful data validation and preprocessing improved overall data quality before modeling.
+
+---
+
+## Limitations
+
+This project has several limitations.
+
+- The model was trained using a single historical dataset.
+- Textual blog content was not included.
+- External factors such as social media activity or marketing campaigns were unavailable.
+- The project focused on offline model development and did not include deployment or production monitoring.
+
+Possible future improvements include:
+
+- Evaluating XGBoost or LightGBM
+- Incorporating NLP-based text features
+- Using temporal validation
+- Deploying the model in a production environment
+- Monitoring model performance over time
 
 ---
 
@@ -129,13 +177,14 @@ Hyperparameter tuning using `RandomizedSearchCV` did not improve validation perf
 ## Skills Demonstrated
 
 - Exploratory Data Analysis (EDA)
-- Data cleaning
-- Duplicate removal
-- Missing value handling
-- Feature validation
-- Correlation analysis
-- Regression modeling
-- Hyperparameter tuning
-- Model evaluation
-- Feature importance analysis
-- Residual analysis
+- Data Cleaning
+- Duplicate Removal
+- Missing Value Handling
+- Feature Validation
+- Correlation Analysis
+- Regression Modeling
+- Hyperparameter Tuning
+- Model Evaluation
+- Feature Importance Analysis
+- Residual Analysis
+- Business Interpretation of Machine Learning Results
